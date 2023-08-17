@@ -1,6 +1,6 @@
 {
     "name": "option/mac",
-    "description": "A class to contain a mac adress according to https://en.wikipedia.org/wiki/MAC_address",
+    "description": "A class to contain a mac adress",
     "license": "proprietary",
     "version": "0.3.0",
     "authors": [
