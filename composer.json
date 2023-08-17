@@ -1,0 +1,32 @@
+{
+    "name": "option/mac",
+    "description": "A class to contain a mac adress according to https://en.wikipedia.org/wiki/MAC_address",
+    "license": "proprietary",
+    "version": "0.3.0",
+    "authors": [
+        {
+            "name": "Gorm E. Johnsen",
+            "email": "gorm@option.no"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "ext-xdebug": "^3.1",
+        "phpunit/phpunit": "^10"
+    },
+    "scripts": {
+        "test": [
+            "vendor\\bin\\phpunit tests"
+        ]
+    },
+    "scripts-descriptions": {
+        "test": "Run all tests!"
+    },
+    "autoload": {
+        "psr-4": {
+            "Option\\Mac\\": "src"
+        }
+    }
+}
