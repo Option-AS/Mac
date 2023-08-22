@@ -45,7 +45,7 @@ class Mac
         if (is_string($candidate)) {
             return new static($candidate);
         }
-        throw new Exception("Could not figure out how to convert this ". gettype($candidate). " to mac address.");
+        throw new Exception("Could not figure out how to convert this " . gettype($candidate) . " to mac address.");
     }
 
     /**
@@ -72,7 +72,6 @@ class Mac
     /**
      * Factory from a single (0 - 2^28) integer
      */
-    #[NumberBetween(0, 2 ^ 28)]
     public static function fromInteger(int $candidate): self
     {
         if (8 > PHP_INT_SIZE) {
@@ -101,7 +100,7 @@ class Mac
 
     /**
      * Sometimes, the byte order of each octet is reversed.
-     * Returns a new instance wher the byte ordrer is corrected.
+     * Returns a new instance where the byte ordrer is corrected.
      * Running the returned value back in again returns the original.
      */
     public function reverseBitOrder(): self
