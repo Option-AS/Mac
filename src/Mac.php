@@ -256,7 +256,7 @@ class Mac
 
     /**
      * Return a copy of this where the NIC hex digits is set to zeros.
-     * Useful to wher only the OUI is needed.
+     * Useful to where only the OUI is needed.
      */
     public function vendor(): self
     {
