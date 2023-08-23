@@ -181,6 +181,14 @@ class Mac
     }
 
     /**
+     * Uppercase hex digits with no delimiters
+     */
+    public function asUppercase(): string
+    {
+        return $this->mac;
+    }
+
+    /**
      * As hex octets
      */
     public function octets(): array
@@ -244,6 +252,15 @@ class Mac
     public function asBytes(): string
     {
         return implode('', array_map('hex2bin', $this->octets()));
+    }
+
+    /**
+     * Return a copy of this where the NIC hex digits is set to zeros.
+     * Useful to wher only the OUI is needed.
+     */
+    public function vendor(): self
+    {
+        return new self(substr($this->mac, 0, 6) . "000000");
     }
 
     /**

@@ -53,6 +53,12 @@ final class MacTest extends TestCase
         $this->assertEquals('123456789abc', $sut->asLowercase());
     }
 
+    public function testAsUppercase()
+    {
+        $sut = Mac::fromHex('12:34:56:78:9a:bc');
+        $this->assertEquals('123456789ABC', $sut->asUppercase());
+    }
+
     public function testAsBytes()
     {
         $sut = Mac::fromHex('41:42:43:44:45:46');
@@ -230,6 +236,12 @@ final class MacTest extends TestCase
 
         $sut = Mac::fromHex('01:00:00:00:00:00');
         $this->assertTrue($sut->isMulticast());
+    }
+
+    public function testVendor()
+    {
+        $sut = Mac::fromHex('12:34:56:78:9A:BC');
+        $this->assertEquals('12:34:56:00:00:00', $sut->vendor());
     }
 }
 
