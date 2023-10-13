@@ -243,6 +243,31 @@ final class MacTest extends TestCase
         $sut = Mac::fromHex('12:34:56:78:9A:BC');
         $this->assertEquals('12:34:56:00:00:00', $sut->vendor());
     }
+
+    public function testFactoryWithString()
+    {
+        $sut = Mac::factory('12:34:56:78:9A:BC');
+        $this->assertEquals('12:34:56:78:9A:BC', (string)$sut);
+    }
+
+    public function testFactoryInteger()
+    {
+        $sut = Mac::factory(20015998343868);
+        $this->assertEquals('12:34:56:78:9A:BC', (string)$sut);
+    }
+
+    public function testFactoryObject()
+    {
+        $sut = Mac::fromHex('12:34:56:78:9A:BC');
+        $sut = Mac::factory($sut);
+        $this->assertEquals('12:34:56:78:9A:BC', (string)$sut);
+    }
+
+    public function testFactoryUnknown()
+    {
+        $this->expectException(Exception::class);
+        Mac::factory([]);
+    }
 }
 
 //EOF
