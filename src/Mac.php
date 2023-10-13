@@ -74,9 +74,7 @@ class Mac
      */
     public static function fromInteger(int $candidate): self
     {
-        if (8 > PHP_INT_SIZE) {
-            throw new Exception("Your system does not handle big enough integers (must be 64 bit system)");
-        }
+        self::throwIfSystemCantHandleBigEnoughIntegers();
         if (0 > $candidate) {
             throw new OutOfBoundsException("Cannot be negative. Got {$candidate}");
         }
@@ -166,9 +164,7 @@ class Mac
      */
     public function asInteger(): int
     {
-        if (8 > PHP_INT_SIZE) {
-            throw new Exception("Your system does not handle big enough integers (must be 64 bit system)");
-        }
+        self::throwIfSystemCantHandleBigEnoughIntegers();
         return hexdec($this->mac);
     }
 
@@ -269,6 +265,13 @@ class Mac
     private static function insertEvery($string, $size = 1, $separator = ' ')
     {
         return implode($separator, str_split($string, $size));
+    }
+
+    private static function throwIfSystemCantHandleBigEnoughIntegers(): void
+    {
+        if (8 > PHP_INT_SIZE) {
+            throw new Exception("Your system does not handle big enough integers (must be 64 bit system)");
+        }
     }
 
     public function __toString(): string
