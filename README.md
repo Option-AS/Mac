@@ -16,31 +16,10 @@ Extracts various information about the mac adress:
 
 ## Installation
 
-Add to your composer.json
+Via Composer
 
-```json
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/Option-AS/Mac"
-    }
-]
-```
-
-You may need to add auth.json and edit to suit
-
-```json
-{
-    "github-oauth": {
-        "github.com": "ghp_ClassicTokenThatGivesReadAccess"
-    }
-}
-```
-
-Install it
-
-```
-composer require option/mac
+```bash
+$ composer require option/mac
 ```
 
 ## Useage
@@ -61,3 +40,7 @@ echo $mac->asDash();   // 01-23-45-67-89-AB
 // Keep the OUI but zero out the NIC.
 echo $mac->vendor();   // 01-23-45-00-00-00
 ```
+
+## License
+
+The GNU Lesser General Public License (LGPL-3.0-or-later). Please see [License File](COPYING) for more information.

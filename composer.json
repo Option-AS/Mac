@@ -1,7 +1,7 @@
 {
     "name": "option/mac",
     "description": "A class to contain a mac adress",
-    "license": "proprietary",
+    "license": "LGPL-3.0-or-later",
     "version": "0.4.0",
     "authors": [
         {

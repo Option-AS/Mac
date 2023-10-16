@@ -3,7 +3,22 @@
 declare(strict_types=1);
 
 /**
- * Object for handling MAC adresses
+ * Option\Mac. Value object for MAC adresses
+ *
+ * Copyright (C) 2023 Option AS
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * A copy of the GNU Lesser General Public License is in a file called COPYING
+ * in the root of this project. If not, see <https://www.gnu.org/licenses/>.
  */
 
 namespace Option\Mac;
