@@ -43,7 +43,7 @@ Install it
 composer require option/mac
 ```
 
-Use it
+## Useage
 
 ```php
 use Option\Mac\Mac;
@@ -51,9 +51,13 @@ use Option\Mac\Mac;
 // Any format will do; only hex digits is considered
 $mac = Mac::factory("1234.5678.90AB");
 
+// Output in various formats:
 echo $mac;             // 01:23:45:67:89:AB
 echo $mac->asColon();  // 01:23:45:67:89:AB
 echo $mac->asDot();    // 0123.4567.89AB
 echo $mac->asIEE802(); // 01-23-45-67-89-AB
 echo $mac->asDash();   // 01-23-45-67-89-AB
+
+// Keep the OUI but zero out the NIC.
+echo $mac->vendor();   // 01-23-45-00-00-00
 ```

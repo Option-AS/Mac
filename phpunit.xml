@@ -9,7 +9,7 @@
     </report>
   </coverage>
   <testsuites>
-    <testsuite name="DeskView">
+    <testsuite name="Mac">
       <directory>tests</directory>
     </testsuite>
   </testsuites>

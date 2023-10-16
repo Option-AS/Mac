@@ -86,6 +86,7 @@ class Mac
 
     /**
      * Factory from a string of exactly six bytes
+     * Complements ::asBytes
      */
     public static function fromBytes(string $bytes): self
     {
@@ -170,6 +171,7 @@ class Mac
 
     /**
      * Lowercase hex digits with no delimiters
+     * Like 0123456789ab
      */
     public function asLowercase(): string
     {
@@ -178,6 +180,7 @@ class Mac
 
     /**
      * Uppercase hex digits with no delimiters
+     * Like 0123456789AB
      */
     public function asUppercase(): string
     {
@@ -186,6 +189,7 @@ class Mac
 
     /**
      * As hex octets
+     * Returns something like ['01', '23', '45', '67', '89', 'AB']
      */
     public function octets(): array
     {
@@ -196,7 +200,6 @@ class Mac
      * Is the I/G bit set?
      * (Individual/Group)
      */
-
     public function IGbit(): bool
     {
         return (bool)(hexdec($this->octets()[0]) & 1);
@@ -244,6 +247,7 @@ class Mac
 
     /**
      * As a six byte string
+     * Complements ::fromBytes
      */
     public function asBytes(): string
     {
