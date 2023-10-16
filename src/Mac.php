@@ -3,7 +3,22 @@
 declare(strict_types=1);
 
 /**
- * Object for handling MAC adresses
+ * Option\Mac. Value object for MAC adresses
+ *
+ * Copyright (C) 2023 Option AS
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * A copy of the GNU Lesser General Public License is in a file called COPYING
+ * in the root of this project. If not, see <https://www.gnu.org/licenses/>.
  */
 
 namespace Option\Mac;
@@ -45,7 +60,7 @@ class Mac
         if (is_string($candidate)) {
             return new static($candidate);
         }
-        throw new Exception("Could not figure out how to convert this ". gettype($candidate). " to mac address.");
+        throw new Exception("Could not figure out how to convert this " . gettype($candidate) . " to mac address.");
     }
 
     /**
@@ -72,12 +87,9 @@ class Mac
     /**
      * Factory from a single (0 - 2^28) integer
      */
-    #[NumberBetween(0, 2 ^ 28)]
     public static function fromInteger(int $candidate): self
     {
-        if (8 > PHP_INT_SIZE) {
-            throw new Exception("Your system does not handle big enough integers (must be 64 bit system)");
-        }
+        self::throwIfSystemCantHandleBigEnoughIntegers();
         if (0 > $candidate) {
             throw new OutOfBoundsException("Cannot be negative. Got {$candidate}");
         }
@@ -89,6 +101,7 @@ class Mac
 
     /**
      * Factory from a string of exactly six bytes
+     * Complements ::asBytes
      */
     public static function fromBytes(string $bytes): self
     {
@@ -101,7 +114,7 @@ class Mac
 
     /**
      * Sometimes, the byte order of each octet is reversed.
-     * Returns a new instance wher the byte ordrer is corrected.
+     * Returns a new instance where the byte ordrer is corrected.
      * Running the returned value back in again returns the original.
      */
     public function reverseBitOrder(): self
@@ -167,14 +180,13 @@ class Mac
      */
     public function asInteger(): int
     {
-        if (8 > PHP_INT_SIZE) {
-            throw new Exception("Your system does not handle big enough integers (must be 64 bit system)");
-        }
+        self::throwIfSystemCantHandleBigEnoughIntegers();
         return hexdec($this->mac);
     }
 
     /**
      * Lowercase hex digits with no delimiters
+     * Like 0123456789ab
      */
     public function asLowercase(): string
     {
@@ -182,7 +194,17 @@ class Mac
     }
 
     /**
+     * Uppercase hex digits with no delimiters
+     * Like 0123456789AB
+     */
+    public function asUppercase(): string
+    {
+        return $this->mac;
+    }
+
+    /**
      * As hex octets
+     * Returns something like ['01', '23', '45', '67', '89', 'AB']
      */
     public function octets(): array
     {
@@ -193,7 +215,6 @@ class Mac
      * Is the I/G bit set?
      * (Individual/Group)
      */
-
     public function IGbit(): bool
     {
         return (bool)(hexdec($this->octets()[0]) & 1);
@@ -241,10 +262,20 @@ class Mac
 
     /**
      * As a six byte string
+     * Complements ::fromBytes
      */
     public function asBytes(): string
     {
         return implode('', array_map('hex2bin', $this->octets()));
+    }
+
+    /**
+     * Return a copy of this where the NIC hex digits is set to zeros.
+     * Useful to where only the OUI is needed.
+     */
+    public function vendor(): self
+    {
+        return new self(substr($this->mac, 0, 6) . "000000");
     }
 
     /**
@@ -253,6 +284,13 @@ class Mac
     private static function insertEvery($string, $size = 1, $separator = ' ')
     {
         return implode($separator, str_split($string, $size));
+    }
+
+    private static function throwIfSystemCantHandleBigEnoughIntegers(): void
+    {
+        if (8 > PHP_INT_SIZE) {
+            throw new Exception("Your system does not handle big enough integers (must be 64 bit system)");
+        }
     }
 
     public function __toString(): string

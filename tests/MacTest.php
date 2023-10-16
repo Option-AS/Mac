@@ -13,97 +13,103 @@ final class MacTest extends TestCase
 {
     public function testEncode()
     {
-        $a = Mac::fromHex('12:34:56:78:9a:bc');
-        $this->assertEquals('12:34:56:78:9A:BC', $a->asColon());
+        $sut = Mac::fromHex('12:34:56:78:9a:bc');
+        $this->assertEquals('12:34:56:78:9A:BC', $sut->asColon());
     }
 
     public function testAsDot()
     {
-        $a = Mac::fromHex('12:34:56:78:9a:bc');
-        $this->assertEquals('1234.5678.9ABC', $a->asDot());
+        $sut = Mac::fromHex('12:34:56:78:9a:bc');
+        $this->assertEquals('1234.5678.9ABC', $sut->asDot());
     }
 
     public function testAsIEE802()
     {
-        $a = Mac::fromHex('12:34:56:78:9a:bc');
-        $this->assertEquals('12-34-56-78-9A-BC', $a->asIEE802());
+        $sut = Mac::fromHex('12:34:56:78:9a:bc');
+        $this->assertEquals('12-34-56-78-9A-BC', $sut->asIEE802());
     }
 
     public function testAsDash()
     {
-        $a = Mac::fromHex('12:34:56:78:9a:bc');
-        $this->assertEquals('12-34-56-78-9A-BC', $a->asDash());
+        $sut = Mac::fromHex('12:34:56:78:9a:bc');
+        $this->assertEquals('12-34-56-78-9A-BC', $sut->asDash());
     }
 
     public function testAsString()
     {
-        $a = Mac::fromHex('12:34:56:78:9a:bc');
-        $this->assertEquals('12:34:56:78:9A:BC', (string)$a);
+        $sut = Mac::fromHex('12:34:56:78:9a:bc');
+        $this->assertEquals('12:34:56:78:9A:BC', (string)$sut);
     }
 
     public function testAsInteger()
     {
-        $a = Mac::fromHex('12:34:56:78:9a:bc');
-        $this->assertEquals(20015998343868, $a->asInteger());
+        $sut = Mac::fromHex('12:34:56:78:9a:bc');
+        $this->assertEquals(20015998343868, $sut->asInteger());
     }
 
     public function testAsLowercase()
     {
-        $a = Mac::fromHex('12:34:56:78:9a:bc');
-        $this->assertEquals('123456789abc', $a->asLowercase());
+        $sut = Mac::fromHex('12:34:56:78:9a:bc');
+        $this->assertEquals('123456789abc', $sut->asLowercase());
+    }
+
+    public function testAsUppercase()
+    {
+        $sut = Mac::fromHex('12:34:56:78:9a:bc');
+        $this->assertEquals('123456789ABC', $sut->asUppercase());
     }
 
     public function testAsBytes()
     {
-        $a = Mac::fromHex('41:42:43:44:45:46');
-        $this->assertEquals('ABCDEF', $a->asBytes());
+        $sut = Mac::fromHex('41:42:43:44:45:46');
+        $this->assertEquals('ABCDEF', $sut->asBytes());
     }
 
     public function testFromInteger()
     {
-        $a = Mac::fromInteger(20015998343868);
-        $this->assertEquals('12:34:56:78:9A:BC', (string)$a);
+        $sut = Mac::fromInteger(20015998343868);
+        $this->assertEquals('12:34:56:78:9A:BC', (string)$sut);
     }
 
     public function testFromIntegerLowNumber0()
     {
-        $a = Mac::fromInteger(0);
-        $this->assertEquals('00:00:00:00:00:00', (string)$a);
+        $sut = Mac::fromInteger(0);
+        $this->assertEquals('00:00:00:00:00:00', (string)$sut);
     }
 
     public function testFromIntegerLowNumber1()
     {
-        $a = Mac::fromInteger(1);
-        $this->assertEquals('00:00:00:00:00:01', (string)$a);
+        $sut = Mac::fromInteger(1);
+        $this->assertEquals('00:00:00:00:00:01', (string)$sut);
     }
 
     public function testFromIntegerLowNumber256()
     {
-        $a = Mac::fromInteger(256);
-        $this->assertEquals('00:00:00:00:01:00', (string)$a);
+        $sut = Mac::fromInteger(256);
+        $this->assertEquals('00:00:00:00:01:00', (string)$sut);
     }
 
     public function testFromIntegerTooSmall()
     {
         $this->expectException(OutOfBoundsException::class);
-        $a = Mac::fromInteger(-1);
+        $sut = Mac::fromInteger(-1);
     }
 
     public function testFromIntegerTooBig()
     {
         $this->expectException(OutOfBoundsException::class);
-        $a = Mac::fromInteger(2 ** 48);
+        $sut = Mac::fromInteger(2 ** 48);
     }
     public function testFromIntegerMin()
     {
-        $a = Mac::fromInteger(0);
-        $this->assertEquals('00:00:00:00:00:00', (string)$a);
+        $sut = Mac::fromInteger(0);
+        $this->assertEquals('00:00:00:00:00:00', (string)$sut);
     }
 
     public function testFromIntegerMax()
     {
-        $a = Mac::fromInteger(2 ** 48 - 1);
-        $this->assertEquals('FF:FF:FF:FF:FF:FF', (string)$a);
+        $sut = Mac::fromInteger(2 ** 48 - 1);
+        $this->assertEquals('FF:FF:FF:FF:FF:FF', (string)$sut);
     }
 
     public function testFromHexWithInvalidHex()
@@ -125,20 +131,20 @@ final class MacTest extends TestCase
     //Not a feature yet
     // public function testThatItToleratesMissingLeadingZero()
     // {
-    //     $a = Mac::fromHex('0:1:2:3:4:6');
-    //     $this->assertEquals('00:01:02:03:04:06', (string)$a);
+    //     $sut = Mac::fromHex('0:1:2:3:4:6');
+    //     $this->assertEquals('00:01:02:03:04:06', (string)$sut);
     // }
 
     public function testfromBytes()
     {
-        $a = Mac::fromBytes(chr(0x12) . chr(0x34) . chr(0x56) . chr(0x78) . chr(0x9A) . chr(0xBC));
-        $this->assertEquals('12:34:56:78:9A:BC', (string)$a);
+        $sut = Mac::fromBytes(chr(0x12) . chr(0x34) . chr(0x56) . chr(0x78) . chr(0x9A) . chr(0xBC));
+        $this->assertEquals('12:34:56:78:9A:BC', (string)$sut);
     }
 
     public function testbinstrrev()
     {
-        $a = Mac::binstrrev("EA");
-        $this->assertEquals("57", $a);
+        $sut = Mac::binstrrev("EA");
+        $this->assertEquals("57", $sut);
     }
 
     public function testfromBytesTooLong()
@@ -155,9 +161,9 @@ final class MacTest extends TestCase
 
     public function testReverseBitOrder()
     {
-        $a = Mac::fromHex('12:34:56:78:9A:BC');
+        $sut = Mac::fromHex('12:34:56:78:9A:BC');
 
-        $b = $a->reverseBitOrder();
+        $b = $sut->reverseBitOrder();
         $this->assertEquals('48:2C:6A:1E:59:3D', (string)$b);
 
         //And back again
@@ -172,6 +178,10 @@ final class MacTest extends TestCase
         $this->assertCount(6, $o);
         $this->assertEquals('12', $o[0]);
         $this->assertEquals('34', $o[1]);
+        $this->assertEquals('56', $o[2]);
+        $this->assertEquals('78', $o[3]);
+        $this->assertEquals('9A', $o[4]);
+        $this->assertEquals('BC', $o[5]);
     }
 
     public function testULbit()
@@ -226,6 +236,37 @@ final class MacTest extends TestCase
 
         $sut = Mac::fromHex('01:00:00:00:00:00');
         $this->assertTrue($sut->isMulticast());
+    }
+
+    public function testVendor()
+    {
+        $sut = Mac::fromHex('12:34:56:78:9A:BC');
+        $this->assertEquals('12:34:56:00:00:00', $sut->vendor());
+    }
+
+    public function testFactoryWithString()
+    {
+        $sut = Mac::factory('12:34:56:78:9A:BC');
+        $this->assertEquals('12:34:56:78:9A:BC', (string)$sut);
+    }
+
+    public function testFactoryInteger()
+    {
+        $sut = Mac::factory(20015998343868);
+        $this->assertEquals('12:34:56:78:9A:BC', (string)$sut);
+    }
+
+    public function testFactoryObject()
+    {
+        $sut = Mac::fromHex('12:34:56:78:9A:BC');
+        $sut = Mac::factory($sut);
+        $this->assertEquals('12:34:56:78:9A:BC', (string)$sut);
+    }
+
+    public function testFactoryUnknown()
+    {
+        $this->expectException(Exception::class);
+        Mac::factory([]);
     }
 }
 
