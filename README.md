@@ -22,7 +22,7 @@ Via Composer
 $ composer require option/mac
 ```
 
-## Useage
+## Usage
 
 ```php
 use Option\Mac\Mac;
@@ -40,6 +40,12 @@ echo $mac->asDash();   // 01-23-45-67-89-AB
 // Keep the OUI but zero out the NIC.
 echo $mac->vendor();   // 01-23-45-00-00-00
 ```
+
+## Test
+```bash
+$ composer test
+```
+A coverage report is generated in coverage/index.html
 
 ## License
 

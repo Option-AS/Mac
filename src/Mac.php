@@ -25,8 +25,9 @@ namespace Option\Mac;
 
 use OutOfBoundsException;
 use TypeError;
+use PhpExtended\Mac\MacAddress48BitsInterface;
 
-class Mac
+class Mac implements MacAddress48BitsInterface
 {
     /**
      * Store the mac address internally as string of twelwe uppercase hex digits
@@ -253,11 +254,27 @@ class Mac
     }
 
     /**
+     * Alias of isUniversal
+     */
+    public function isGloballyUnique(): bool
+    {
+        return $this->isUniversal();
+    }
+
+    /**
      * Does the U/L bit indicate this is a Local address?
      */
     public function isLocal(): bool
     {
         return $this->ULbit();
+    }
+
+    /**
+     * Alias of isLocal
+     */
+    public function isLocallyUnique(): bool
+    {
+        return $this->isLocal();
     }
 
     /**
@@ -296,6 +313,58 @@ class Mac
     public function __toString(): string
     {
         return $this->asColon();
+    }
+
+    private function getByte(int $zeroBasedByteNo): int
+    {
+        if (0 > $zeroBasedByteNo or $zeroBasedByteNo > 5) {
+            throw new OutOfBoundsException("zeroBasedByteNo must be in the range 0 to 5");
+        }
+        return hexdec($this->octets()[$zeroBasedByteNo]);
+    }
+
+    public function getFirstByte(): int
+    {
+        return $this->getByte(0);
+    }
+    public function getSecondByte(): int
+    {
+        return $this->getByte(1);
+    }
+    public function getThirdByte(): int
+    {
+        return $this->getByte(2);
+    }
+    public function getFourthByte(): int
+    {
+        return $this->getByte(3);
+    }
+    public function getFifthByte(): int
+    {
+        return $this->getByte(4);
+    }
+    public function getSixthByte(): int
+    {
+        return $this->getByte(5);
+    }
+
+    public function getOui(): int
+    {
+        return hexdec(substr($this->mac, 0, 6));
+    }
+    public function getNic(): int
+    {
+        return hexdec(substr($this->mac, 6, 6));
+    }
+    public function isIpv4Multicast(): bool
+    {
+        return 0x0001005E === $this->getOui();
+    }
+    public function equals($object): bool
+    {
+        return ($object instanceof MacAddress48BitsInterface)
+            && $this->getNic() === $object->getNic()
+            && $this->getOui() === $object->getOui();
     }
 }
 
