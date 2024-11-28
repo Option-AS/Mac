@@ -8,6 +8,10 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD",
 "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be
 interpreted as described in [RFC 2119](https://tools.ietf.org/html/rfc2119).
 
+## 0.6.0 2024-11-28
+### Added
+Support for PhpExtended\Mac\MacAddress48BitsInterface
+
 ## 0.5.0 2023-10-16
 Prepared for publication of git repo
  - Added GNU Lesser General Public License
