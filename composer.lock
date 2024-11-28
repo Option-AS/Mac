@@ -4,8 +4,107 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39f3a7582066c8328b5755db7c074141",
-    "packages": [],
+    "content-hash": "e01bbcb2be05876bb5015da3b3f89b60",
+    "packages": [
+        {
+            "name": "php-extended/php-mac-interface",
+            "version": "7.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.com/php-extended/php-mac-interface.git",
+                "reference": "785299b2161701e294973743a2a5f1b3040580ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://gitlab.com/api/v4/projects/php-extended%2Fphp-mac-interface/repository/archive.zip?sha=785299b2161701e294973743a2a5f1b3040580ad",
+                "reference": "785299b2161701e294973743a2a5f1b3040580ad",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0",
+                "php-extended/php-parser-interface": "^7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpExtended\\Mac\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anastaszor",
+                    "homepage": "https://gitlab.com/Anastaszor",
+                    "role": "developer"
+                }
+            ],
+            "description": "Interfaces to implement mac address parsing",
+            "homepage": "https://gitlab.com/php-extended/php-mac-interface",
+            "keywords": [
+                "48 bits",
+                "64 bits",
+                "MAC",
+                "eui",
+                "interface",
+                "php"
+            ],
+            "support": {
+                "issues": "https://gitlab.com/php-extended/php-mac-interface/issues",
+                "source": "https://gitlab.com/php-extended/php-mac-interface"
+            },
+            "time": "2024-03-31T23:23:58+00:00"
+        },
+        {
+            "name": "php-extended/php-parser-interface",
+            "version": "7.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://gitlab.com/php-extended/php-parser-interface.git",
+                "reference": "c23e2f20b9302007b3eec7cc5a2548b23a9befd9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://gitlab.com/api/v4/projects/php-extended%2Fphp-parser-interface/repository/archive.zip?sha=c23e2f20b9302007b3eec7cc5a2548b23a9befd9",
+                "reference": "c23e2f20b9302007b3eec7cc5a2548b23a9befd9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpExtended\\Parser\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Anastaszor",
+                    "homepage": "https://gitlab.com/Anastaszor",
+                    "role": "developer"
+                }
+            ],
+            "description": "An abstract interface implementation for parsers",
+            "homepage": "https://gitlab.com/php-extended/php-parser-interface",
+            "keywords": [
+                "interface",
+                "parser",
+                "php"
+            ],
+            "support": {
+                "issues": "https://gitlab.com/php-extended/php-parser-interface/issues",
+                "source": "https://gitlab.com/php-extended/php-parser-interface"
+            },
+            "time": "2024-07-30T21:18:01+00:00"
+        }
+    ],
     "packages-dev": [
         {
             "name": "myclabs/deep-copy",

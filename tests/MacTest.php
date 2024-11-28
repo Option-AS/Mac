@@ -202,6 +202,15 @@ final class MacTest extends TestCase
         $this->assertFalse($sut->isUniversal());
     }
 
+    public function testIsGloballyUnique()
+    {
+        $sut = Mac::fromHex('00:00:00:00:00:00');
+        $this->assertTrue($sut->isGloballyUnique());
+
+        $sut = Mac::fromHex('02:00:00:00:00:00');
+        $this->assertFalse($sut->isGloballyUnique());
+    }
+
     public function testIsLocal()
     {
         $sut = Mac::fromHex('00:00:00:00:00:00');
@@ -209,6 +218,15 @@ final class MacTest extends TestCase
 
         $sut = Mac::fromHex('02:00:00:00:00:00');
         $this->assertTrue($sut->isLocal());
+    }
+
+    public function testIsLocallyUnique()
+    {
+        $sut = Mac::fromHex('00:00:00:00:00:00');
+        $this->assertFalse($sut->isLocallyUnique());
+
+        $sut = Mac::fromHex('02:00:00:00:00:00');
+        $this->assertTrue($sut->isLocallyUnique());
     }
 
     public function testIGbit()
@@ -267,6 +285,42 @@ final class MacTest extends TestCase
     {
         $this->expectException(Exception::class);
         Mac::factory([]);
+    }
+
+    public function testGetFirstToSixth(): void
+    {
+        $sut = Mac::fromHex('12:34:56:78:9A:BC');
+        $this->assertEquals(0x12, $sut->getFirstByte());
+        $this->assertEquals(0x34, $sut->getSecondByte());
+        $this->assertEquals(0x56, $sut->getThirdByte());
+        $this->assertEquals(0x78, $sut->getFourthByte());
+        $this->assertEquals(0x9A, $sut->getFifthByte());
+        $this->assertEquals(0xBC, $sut->getSixthByte());
+    }
+
+    public function testGetOui(): void
+    {
+        $sut = Mac::fromHex('12:34:56:78:9A:BC');
+        $this->assertEquals(hexdec("123456"), $sut->getOui());
+    }
+
+    public function testGetNic(): void
+    {
+        $sut = Mac::fromHex('12:34:56:78:9A:BC');
+        $this->assertEquals(hexdec("789ABC"), $sut->getNic());
+    }
+
+    public function testIsIpv4Multicast(): void
+    {
+        $sut = Mac::fromHex('12:34:56:78:9A:BC');
+        $this->assertFalse($sut->isIpv4Multicast());
+    }
+
+    public function testEquals(): void
+    {
+        $sut1 = Mac::fromHex('12:34:56:78:9A:BC');
+        $sut2 = Mac::fromHex('12:34:56:78:9A:BC');
+        $this->assertTrue($sut1->equals($sut2));
     }
 }
 
